@@ -1,0 +1,17 @@
+.container {
+    position: relative;
+    bottom: 20px;
+    right: 20px;
+}
+#map {
+    height: 100vh; /* Full height */
+    width: 100%;
+}
+
+.nav_menu{
+    position : absolute;
+    z-index: 1;
+    height: 50px;
+    width: 50px;
+    background-image: url("https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pngwing.com%2Fen%2Fsearch%3Fq%3Dred%2BAlert&psig=AOvVaw02vLCWmgsZESv8JIWK0xLQ&ust=1726885419248000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCOCbxNe70IgDFQAAAAAdAAAAABAJ");
+}

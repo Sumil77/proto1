@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Women's Safety - India</title>
+    <link rel="stylesheet" href="/css/home.css">
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <div class="image-left">
+                <img src="/assets/logo.jpg" alt="Image 1">
+            </div>
+            <div class="image-center">
+                <img src="/assets/Ashok_stambh.jpg" alt="Image 2">
+            </div>
+            <div class="image-right">
+                <img src="/assets/Safe1.jpg" alt="Image 3">
+            </div>
+        </div>
+    </header>
+
+    <!-- Navbar Section -->
+    <nav class="navbar">
+        <!-- Clickable Icon or Logo on the left -->
+        <div class="logo">
+            <a class="naam" href="index.html"> <!-- Link to the homepage -->
+                <img src="https://via.placeholder.com/40" alt="Logo" style="vertical-align: middle;">
+                Kavach
+            </a>
+        </div>
+
+        <!-- Buttons on the right -->
+        <div class="navbar-buttons">
+
+            <button class="c-button c-button--gooey" th:onclick= "map()">Map
+                <div class="c-button__blobs">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </button>
+
+            <button class="c-button c-button--gooey">About Us
+                <div class="c-button__blobs">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </button>
+
+            <button class="c-button c-button--gooey">Red Zone
+                <div class="c-button__blobs">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </button>
+
+            <button class="c-button c-button--gooey">Contact
+                <div class="c-button__blobs">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </button>
+
+            <!-- Profile Button with Dropdown Menu -->
+            <div class="profile-menu-container">
+                <button class="profile-button">
+                    <img src="/assets/profile.jpg" alt="Profile" class="profile-icon">
+                </button>
+                <div class="profile-menu">
+                    <a th:href="@{/req/login}">Profile</a>
+                    <a href="#settings">Settings</a>
+                    <a href="#logout">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero-section-left">
+        <div class="hero-section-heading hero-section-sub-heading">
+            <span class="role"></span>
+        </div>
+    </div>
+
+    <!-- About Us Section -->
+    <div class="about-us-section">
+        <h2>About Us!</h2>
+        <h2>Welcome To <span id="W_Name1">Kavach</span></h2>
+        <p><span id="W_Name2">Kavach</span> is a Professional <span id="W_Type1">Women Safety app</span> Platform. Here we will only provide you with interesting content that you will enjoy very much. We are committed to providing you the best of <span id="W_Type2">Women Safety app</span>, with a focus on reliability and <span id="W_Spec">A comprehensive women's safety platform offering real-time location sharing, quick incident reporting, and map-based safety alerts, integration with family members, law enforcement.</span> We strive to turn our passion for <span id="W_Type3">Women Safety app</span> into a thriving website. We hope you enjoy our <span id="W_Type4">Women Safety app</span> as much as we enjoy giving them to you.</p>
+        <p>I will keep on posting such valuable and knowledgeable information on my Website for all of you. Your love and support matters a lot.</p>
+        <p class="closing">Thank you For Visiting Our Site<br>
+        <span>Have a great day!</span></p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script src="https://kit.fontawesome.com/58a810656e.js" crossorigin="anonymous"></script>
+    <script>
+        function map(){
+            window.location.href = '[[@{/map}]]';
+        }
+        var typeData = new Typed(".role", {
+            strings: [
+                "Your Experience, Our Mission",
+                "Ensuring Your Safety, Anytime, Anywhere.",
+                "Stay Safe, Stay Connected",
+                "Alert. Act. Stay Safe",
+                "Empowering Women, Ensuring Safety",
+            ],
+            loop: true,
+            typeSpeed: 50,
+            backSpeed: 40,
+            backDelay: 1000,
+        });
+
+        // JavaScript to toggle the profile menu
+        document.querySelector('.profile-button').addEventListener('click', function(e) {
+            e.stopPropagation(); // Prevent event from bubbling up
+            var menu = document.querySelector('.profile-menu');
+            menu.classList.toggle('show');
+        });
+
+        // Close the profile menu when clicking outside
+        document.addEventListener('click', function(e) {
+            var menu = document.querySelector('.profile-menu');
+            var profileButton = document.querySelector('.profile-button');
+            if (!profileButton.contains(e.target) && !menu.contains(e.target)) {
+                menu.classList.remove('show');
+            }
+        });
+    </script>
+
+</body>
+</html>

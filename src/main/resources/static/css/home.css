@@ -1,0 +1,218 @@
+/* General reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body settings */
+body {
+    font-family: 'Verdana', sans-serif;
+    background-color: #f9f9f9;
+    overflow-x: hidden;
+}
+
+/* Container settings */
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Navbar styles */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #FF9933; /* Saffron color from the Indian flag */
+    padding: 10px 20px;
+    border-bottom: 4px solid #138808; /* Green color from the Indian flag */
+    max-height: 200px; /* Set maximum height for the header */
+}
+
+.navbar .logo a {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.navbar .logo img {
+    border-radius: 50%;
+}
+
+/* From Uiverse.io by cssbuttons-io */
+.c-button {
+    color: #000;
+    font-weight: 700;
+    font-size: 16px;
+    text-decoration: none;
+    padding: 0.9em 1.6em;
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    z-index: 1;
+    border: 2px solid #000; /* Border color for the buttons */
+}
+
+.c-button--gooey {
+    color: #000;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-radius: 0;
+    position: relative;
+    transition: all 300ms ease;
+}
+
+.c-button--gooey .c-button__blobs {
+    height: 100%;
+    filter: url(#goo);
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: -3px;
+    right: -1px;
+    z-index: -1;
+}
+
+.c-button--gooey .c-button__blobs div {
+    background-color: #000;
+    width: 34%;
+    height: 100%;
+    border-radius: 100%;
+    position: absolute;
+    transform: scale(1.4) translateY(125%) translateZ(0);
+    transition: all 300ms ease;
+}
+
+.c-button--gooey .c-button__blobs div:nth-child(1) {
+    left: -5%;
+}
+
+.c-button--gooey .c-button__blobs div:nth-child(2) {
+    left: 30%;
+    transition-delay: 60ms;
+}
+
+.c-button--gooey .c-button__blobs div:nth-child(3) {
+    left: 66%;
+    transition-delay: 25ms;
+}
+
+.c-button--gooey:hover {
+    color: #fff;
+}
+
+.c-button--gooey:hover .c-button__blobs div {
+    transform: scale(1.4) translateY(0) translateZ(0);
+}
+
+/* Profile Button */
+.profile-menu-container {
+    position: relative;
+    display: inline-block;
+}
+
+.profile-button {
+    background-color: white;
+    border: 2px solid #138808;
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.profile-button:hover {
+    background-color: #138808;
+}
+
+.profile-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+/* Profile Menu */
+.profile-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 40px; /* Adjust if necessary */
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+.profile-menu.show {
+    display: block;
+}
+
+.profile-menu-container{
+    transform: translateY(10px);
+
+}
+
+.profile-menu a {
+    display: block;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #333;
+}
+
+.profile-menu a:hover {
+    background-color: #f0f0f0;
+}
+
+/* Hero Section Styles */
+.hero-section-left {
+    padding: 20px;
+    text-align: center;
+    transform: translateY(-160px);
+}
+
+.hero-section-heading {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+.hero-section-sub-heading {
+    font-size: 18px;
+    color: #666;
+}
+
+/* About Us Section */
+.about-us-section {
+    background-color: rgb(248, 249, 250);
+    padding: 18px;
+    color: black;
+}
+
+.about-us-section h2 {
+    font-family: Sans-serif;
+    color: black;
+}
+
+.about-us-section h2 span {
+    color: #138808; /* Green color */
+}
+
+.about-us-section p {
+    font-family: Sans-serif;
+    line-height: 1.6;
+}
+
+.about-us-section p.closing {
+    font-weight: bold;
+    text-align: center;
+}
+
+.about-us-section p.closing span {
+    color: blue;
+    font-size: 16px;
+    font-weight: bold;
+}

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HeatMap</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="/css/map.css">
+</head>
+<body>
+<div class = "container"><div id="map"><button class="nav_menu" ></button></div></div>
+
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+<script>
+    function calculateRadius(boundingBox) {
+        const minLat = parseFloat(boundingBox[0]);
+        const maxLat = parseFloat(boundingBox[1]);
+        const minLon = parseFloat(boundingBox[2]);
+        const maxLon = parseFloat(boundingBox[3]);
+        const width = maxLon - minLon;
+        const height = maxLat - minLat;
+        const averageDimension = (width + height) / 2;
+        const radiusInMeters = averageDimension * 111320;
+
+        return radiusInMeters / 2;
+    }
+
+
+    function fetchCoordinatesAndRadius(areaName) {
+        const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(areaName)}&format=json`;
+
+        fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error fetching coordinates');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.length > 0) {
+                    const { lat, lon, boundingbox } = data[0];
+                    const radius = calculateRadius(boundingbox);
+                    console.log('Coordinates:', lat, lon);
+                    console.log('Estimated Radius (meters):', radius);
+                } else {
+                    console.log('No results found for the area.');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+
+    var map = L.map('map').setView([28.7041, 77.1025], 12);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+    fetch('/api/areas')
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(function(area) {
+                var circle = L.circle([area.lat, area.lng], {
+                    color: area.color,
+                    fillColor: area.color,
+                    fillOpacity: 0.5,
+                    radius: area.radius
+                }).addTo(map);
+                circle.bindPopup("Reports: " + area.reportCount);
+            });
+        })
+        .catch(error => console.error('Error fetching areas:', error));
+</script>
+
+
+</body>
+</html>
