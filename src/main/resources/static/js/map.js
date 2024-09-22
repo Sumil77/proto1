@@ -1,93 +1,95 @@
+function calculateRadius(boundingBox) {
+    const minLat = parseFloat(boundingBox[0]);
+    const maxLat = parseFloat(boundingBox[1]);
+    const minLon = parseFloat(boundingBox[2]);
+    const maxLon = parseFloat(boundingBox[3]);
+    const width = maxLon - minLon;
+    const height = maxLat - minLat;
+    const averageDimension = (width + height) / 2;
+    const radiusInMeters = averageDimension * 111320;
 
-$(function() {
+    return radiusInMeters / 2;
+}
 
-    // var totalLatLng = '';
-    var totalLatLng = '(24.99539, 121.51033)|(25.02277, 121.53368)|(25.05295, 121.49935)|(25.01624, 121.44579)|(24.99508, 121.48252)';
-    totalLatLng = "(24.958670130576788, 121.54380798339844)|(25.00721721376883, 121.57539367675781)|(25.048280535236525, 121.63719177246094)| (25.048280535236525, 121.55067443847655)| (25.066319162978587, 121.50329589843749)| (25.042681800625747, 121.47377014160155)| (25.066319162978587, 121.43394470214844)| (25.06880704116911, 121.38313293457031)| (25.053256973596127, 121.30828857421875)| (25.003483503351507, 121.2403106689453)| (24.958047607668494, 121.18400573730469)| (24.886436490787712, 121.25473022460936)| (24.870240390088835, 121.31034851074219)| (24.900139225095582, 121.40853881835936)| (24.937502586022006, 121.45866394042967)|"
-    totalLatLng = "(2.67968661580376,109.16015624999999)|(1.472006010190348,108.80859375)|(-0.373532510228792,109.97314453125)|(0.32958802605356885,113.75244140624999)|(2.5479878714713706,116.8505859375)|(4.105369348495178,118.71826171875)|(5.090944175033399,119.64111328125)|(6.315298538330033,118.14697265625)|(7.536764322084078,117.72949218749999)|(7.340674831854924,116.69677734375)|(6.075011000682009,115.26855468749999)|(5.178482088522876,114.36767578124999)|(4.017699464336852,113.02734374999999)|(2.6138389710984824,110.61035156249999)"
-    var map        = null;
-    var polygon    = null;
-    var draggable  = true;
+function fetchCoordinatesAndRadius(areaName) {
+    const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(areaName)}&format=json`;
 
-    initialize();
-
-    function initialize() {
-        // Create map and polygon for map
-        map     = new GeofencingMap('map').map;
-        polygon = new MultiPolygon(map, $('#polygon-name').val());
-
-        var coords = new Array();
-        // Add markers for polygon coordinates
-        var splitLatLng = totalLatLng.split("|");
-        for(var i = 0; i < splitLatLng.length; i++){
-            var latlng = splitLatLng[i].trim().substring(1, splitLatLng[i].length-1).split(",");
-            if(latlng.length > 1){
-                coords.push(L.latLng(latlng[0], latlng[1]));
+    fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error fetching coordinates');
             }
-        }
-
-        polygon.addPolygon(coords, true)
-        polygon.setCreatePolygonsCallback(updateDetails);
-        polygon.setAllowDragging(draggable)
-        polygon.setEditable(true);
-
-        // Update coordinates displayed on 'C' press
-        updateCoords();
-        $(window).keyup(function(e){
-            if(e.keyCode == 67){
-                updateCoords();
+            return response.json();
+        })
+        .then(data => {
+            if (data.length > 0) {
+                const { lat, lon, boundingbox } = data[0];
+                const radius = calculateRadius(boundingbox);
+                console.log('Coordinates:', lat, lon);
+                console.log('Estimated Radius (meters):', radius);
+            } else {
+                console.log('No results found for the area.');
             }
         })
+        .catch(error => console.error('Error:', error));
+}
 
-        $('#allow-dragging').click(function(){
-            draggable = !draggable;
-            polygon.setAllowDragging(draggable);
-            if(draggable){
-                $(this).html('Disable Dragging')
-            }
-            else{
-                $(this).html('Enable Dragging')
+function handleReport() {
+    alert('Report clicked. You can add your reporting logic here.');
+}
 
-            }
+function showAnalytics() {
+    alert('Analytics clicked. You can add your analytics logic here.');
+}
+
+
+
+var currentMarker = null
+var map = L.map('map', {
+    doubleClickZoom: false
+}).setView([28.7041, 77.1025], 12);
+
+function removeMarker() {
+    if (currentMarker) {
+        map.removeLayer(currentMarker); // Remove the marker from the map
+        currentMarker = null; // Reset the marker variable
+    }
+}
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
+fetch('/api/areas')
+    .then(response => response.json())
+    .then(data => {
+        data.forEach(function(area) {
+            var circle = L.circle([area.lat, area.lng], {
+                color: area.color,
+                fillColor: area.color,
+                fillOpacity: 0.5,
+                radius: area.radius
+            }).addTo(map);
+            circle.bindPopup("Reports: " + area.reportCount);
         });
+    })
+    .catch(error => console.error('Error fetching areas:', error));
 
-        $('#new-polygon').click(function(){
-            polygon.createNewPolygon();
-        });
+map.on('dblclick', function(e) {
+    var latlng = e.latlng; // Get latitude and longitude of the clicked point
 
-        $('#clear-all').click(function(){
-            polygon.deleteAllPolygons();
-        });
-
-        $('#update-polygon').click(function(){
-            polygon.setName($('#polygon-name').val());
-            polygon.panToPolygon();
-        });
+    if (currentMarker) {
+        map.removeLayer(currentMarker);
     }
 
-    function updateDetails(p){
-        updateCoords();
-    }
+    // Create a marker
+    currentMarker = L.marker([latlng.lat, latlng.lng]).addTo(map);
 
-    function updateCoords(e){
-        var polys = polygon.getPolygons();
-        var multi_coords = polygon.getPolygonCoordinates();
-        $('.coords').empty();
+    // Create an options menu as a popup with options like Report, Analytics, etc.
+    var popupContent = `
+        <strong>Options</strong><br>
+        <button onclick="handleReport()">Report</button><br>
+        <button onclick="showAnalytics()">Analytics</button>
+    `;
 
-        for (var j in multi_coords){
-            var name = $('<h3>' + polys[j].name + '</h3>').addClass(polys[j].name);
-            if(polys[j].selfIntersects()){
-                name.css('color', 'red')
-            }
-
-            $('.coords').append(name);
-            var coords = multi_coords[j];
-            for (var i in coords){
-                var c = $('<li>').html(coords[i].lat + ", " + coords[i].lng);
-                $('.coords').append(c);
-            }
-            $('.coords').append('<hr/>');
-
-        }
-    }
+    currentMarker.bindPopup(popupContent).openPopup();
 });
