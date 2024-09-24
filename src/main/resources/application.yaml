@@ -2,9 +2,9 @@ spring:
   application:
     name: proto1
   datasource:
-    url: jdbc:postgresql://localhost:5432/proto1db
+    url: jdbc:postgresql://localhost:5432/protodb1
     username: postgres
-    password: Hellotome@99
+    password: Mannkibaat@123
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:

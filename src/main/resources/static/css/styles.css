@@ -108,3 +108,7 @@ a:hover {
 .signup-link {
     margin-top: 15px;
 }
+
+.signup-link a{
+    cursor: pointer;
+}
