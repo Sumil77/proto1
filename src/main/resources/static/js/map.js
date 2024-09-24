@@ -34,18 +34,62 @@ function fetchCoordinatesAndRadius(areaName) {
         .catch(error => console.error('Error:', error));
 }
 
-var map = L.map('map').setView([28.7041, 77.1025], 12);
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-}).addTo(map);
+function handleReport() {
+    alert('Report clicked. You can add your reporting logic here.');
+}
 
-
-
-function showAlert() {
-    alert('Alert button clicked!');
+function showAnalytics() {
+    alert('Analytics clicked. You can add your analytics logic here.');
 }
 
 
 
+var currentMarker = null
+var map = L.map('map', {
+    doubleClickZoom: false
+}).setView([28.7041, 77.1025], 12);
 
-// Initialize your geofencing and polygon logic...
+function removeMarker() {
+    if (currentMarker) {
+        map.removeLayer(currentMarker); // Remove the marker from the map
+        currentMarker = null; // Reset the marker variable
+    }
+}
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
+fetch('/api/areas')
+    .then(response => response.json())
+    .then(data => {
+        data.forEach(function(area) {
+            var circle = L.circle([area.lat, area.lng], {
+                color: area.color,
+                fillColor: area.color,
+                fillOpacity: 0.5,
+                radius: area.radius
+            }).addTo(map);
+            circle.bindPopup("Reports: " + area.reportCount);
+        });
+    })
+    .catch(error => console.error('Error fetching areas:', error));
+
+map.on('dblclick', function(e) {
+    var latlng = e.latlng; // Get latitude and longitude of the clicked point
+
+    if (currentMarker) {
+        map.removeLayer(currentMarker);
+    }
+
+    // Create a marker
+    currentMarker = L.marker([latlng.lat, latlng.lng]).addTo(map);
+
+    // Create an options menu as a popup with options like Report, Analytics, etc.
+    var popupContent = `
+        <strong>Options</strong><br>
+        <button onclick="handleReport()">Report</button><br>
+        <button onclick="showAnalytics()">Analytics</button>
+    `;
+
+    currentMarker.bindPopup(popupContent).openPopup();
+});
