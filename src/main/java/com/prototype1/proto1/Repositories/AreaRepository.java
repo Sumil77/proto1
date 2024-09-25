@@ -1,5 +1,6 @@
-package com.prototype1.proto1.Area;
+package com.prototype1.proto1.Repositories;
 
+import com.prototype1.proto1.Models.Area;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;

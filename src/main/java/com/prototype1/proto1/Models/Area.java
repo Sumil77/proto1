@@ -1,11 +1,9 @@
-package com.prototype1.proto1.Area;
+package com.prototype1.proto1.Models;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.*;
 
 @Entity
 @Getter

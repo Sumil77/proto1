@@ -1,8 +1,8 @@
-package com.prototype1.proto1.Report;
+package com.prototype1.proto1.Services;
 
-import com.prototype1.proto1.Area.Area;
-import com.prototype1.proto1.Area.AreaRepository;
-import com.prototype1.proto1.GeoUtils;
+import com.prototype1.proto1.Models.Area;
+import com.prototype1.proto1.Repositories.AreaRepository;
+import com.prototype1.proto1.Utils.GeoUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

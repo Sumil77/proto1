@@ -1,4 +1,4 @@
-package com.prototype1.proto1;
+package com.prototype1.proto1.Utils;
 
 public class GeoUtils {
 

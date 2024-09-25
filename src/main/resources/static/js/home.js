@@ -49,7 +49,9 @@ function changeSlide(direction) {
   showSlide(currentSlide);
 }
 
-
+function openMap(){
+    window.location.href= '/map'
+}
 
 
 

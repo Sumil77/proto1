@@ -1,5 +1,7 @@
-package com.prototype1.proto1.Area;
+package com.prototype1.proto1.Controllers;
 
+import com.prototype1.proto1.Models.Area;
+import com.prototype1.proto1.Repositories.AreaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

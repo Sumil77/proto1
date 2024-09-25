@@ -33,7 +33,7 @@
         <!-- Buttons on the right -->
         <div class="navbar-buttons">
 
-            <button class="c-button c-button--gooey" onclick="window.location.href='map.html'">Map
+            <button class="c-button c-button--gooey" onclick="openMap()">Map
                 <div class="c-button__blobs">
                     <div></div>
                     <div></div>
@@ -71,8 +71,8 @@
                     <img src="/assets/profile.png" alt="Profile" class="profile-icon">
                 </button>
                 <div class="profile-menu">
-                    <a href="log-in.html">Profile</a>
-                    <a href="setting.html">Settings</a>
+                    <a th:href="@{/log-in.html}">Profile</a>
+                    <a th:href="@{/settings.html}">Settings</a>
                     <a href="#logout">Logout</a>
                 </div>
 
