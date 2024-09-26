@@ -1,6 +1,5 @@
 package com.prototype1.proto1.Configs;
 
-import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -39,7 +38,7 @@ public class SecurityConfig {
 
                 })
                 .authorizeHttpRequests(registry ->{
-                    registry.requestMatchers("/assets/**","/home","/req/register","/css/**","/js/**","/map", "/api/areas" , "/settings").permitAll();
+                    registry.requestMatchers("/","/auth/**","/assets/**","/home","/req/register","/css/**","/js/**","/map", "/api/areas" , "/settings").permitAll();
                     registry.anyRequest().authenticated();
                 })
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

@@ -18,10 +18,10 @@ import java.util.function.Function;
 
 @Service
 public class JwtService {
-    @Value("$security.jwt.secrey-key")
+    @Value("${security.jwt.secret-key}")
     private String secretKey;
 
-    @Value("$security.jwt.expiration-time")
+    @Value("${security.jwt.expiration-time}")
     private long jwtExpiration;
 
     public String extractUsername(String token){
@@ -56,7 +56,7 @@ public class JwtService {
                 .setSubject(user.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
-                .signWith(getSignInKey(), SignatureAlgorithm.ES256)
+                .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
 
