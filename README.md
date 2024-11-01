@@ -65,4 +65,3 @@ This project is under active development, and contributions are welcome. Feel fr
 
 📜 **License**
 This project is licensed under the MIT License. See the **LICENSE** file for details.
-
