@@ -48,20 +48,20 @@ Navigate to the backend directory and build the project:
     mvn spring-boot:run
 ```
 3. **Frontend Setup**
-Open index.html in a browser to view the frontend.
+- Open index.html in a browser to view the frontend.
 
 🎯 **Usage**
-•	Register with your email and log in using the OTP sent for identity verification.
-•	View heatmaps and danger zones on the **OpenStreetMap** interface.
+- Register with your email and log in using the OTP sent for identity verification.
+- View heatmaps and danger zones on the **OpenStreetMap** interface.
 
 🔄 **Future Enhancements**
-•	Real-time location sharing with family and authorities
-•	Incident reporting and alerts
-•	Advanced analytics for threat detection
-•	Gesture-based emergency alert system
+- Real-time location sharing with family and authorities
+- Incident reporting and alerts
+- Advanced analytics for threat detection
+- Gesture-based emergency alert system
 
 🤝 **Contribution**
-This project is under active development, and contributions are welcome. Feel free to open an issue or submit a pull request.
+- This project is under active development, and contributions are welcome. Feel free to open an issue or submit a pull request.
 
 📜 **License**
-This project is licensed under the MIT License. See the **LICENSE** file for details.
+- This project is licensed under the MIT License. See the **LICENSE** file for details.
